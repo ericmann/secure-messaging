@@ -4,9 +4,9 @@ Donate link:       https://eamann.com
 Tags:              PGP, GPG, Security
 Requires at least: 4.7.3
 Tested up to:      4.7.3
-Stable tag:        0.1.0
+Stable tag:        0.2.0
 License:           MIT
-License URI:       
+License URI:       https://opensource.org/licenses/MIT
 
 GPG security for WordPress messaging.
 
@@ -30,6 +30,11 @@ This is primarily used to secure password reset emails so, even if an attacker w
 
 
 == Changelog ==
+
+= 0.2.0 =
+* Update: Use a new GPG library for better PHP compatiblity
+* Update: Add nonce checks on the profile page
+* Update: Add Romanian translations
 
 = 0.1.0 =
 * First release

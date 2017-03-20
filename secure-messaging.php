@@ -3,7 +3,7 @@
  * Plugin Name: Secure Messaging
  * Plugin URI:  https://eamann.com
  * Description: GPG security for WordPress messaging.
- * Version:     0.1.0
+ * Version:     0.2.0
  * Author:      Eric Mann
  * Author URI:  https://eamann.com
  * License:     MIT
@@ -12,7 +12,7 @@
  */
 
 // Useful global constants
-define( 'SECUREMSG_VERSION', '0.1.0' );
+define( 'SECUREMSG_VERSION', '0.2.0' );
 define( 'SECUREMSG_URL',     plugin_dir_url( __FILE__ ) );
 define( 'SECUREMSG_PATH',    dirname( __FILE__ ) . '/' );
 define( 'SECUREMSG_INC',     SECUREMSG_PATH . 'includes/' );
