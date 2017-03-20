@@ -1,0 +1,28 @@
+{
+	"name": "ericmann/secure-messaging",
+	"description": "GPG security for WordPress messaging.",
+	"version": "0.1.0",
+	"type": "wordpress-plugin",
+	"keywords": [],
+	"homepage": "https://eamann.com",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Eric Mann",
+			"email": "eric@eamann.com",
+			"homepage": "https://eamann.com",
+			"role": "Developer"
+		}
+	],
+    "minimum-stability": "dev",
+	"require": {
+		"php": ">=7.0",
+		"pear/crypt_gpg": "^1.4"
+	},
+    "require-dev": {
+	    "antecedent/patchwork": "1.2.*",
+        "phpunit/phpunit"     : "*@stable",
+	    "brianium/paratest"   : "dev-master",
+        "10up/wp_mock"        : "dev-master"
+    }
+}
