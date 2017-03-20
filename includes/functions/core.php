@@ -1,6 +1,9 @@
 <?php
 namespace EAMann\Secure_Messaging\Core;
 
+use nicoSWD\GPG\GPG;
+use nicoSWD\GPG\PublicKey;
+
 /**
  * Default setup routine
  *
@@ -116,11 +119,10 @@ function protect_message( $message, $key, $user_login, $user ) {
 	}
 
 	try {
-		$gnupg = new \Crypt_GPG(['homedir' => SECUREMSG_PATH]);
-		$data = $gnupg->importKey(base64_decode($key));
-		$gnupg->addEncryptKey($data['fingerprint']);
+		$gpg = new GPG();
+		$pubKey = new PublicKey(base64_decode($key));
 
-		return $gnupg->encrypt($message, true);
+		return $gpg->encrypt($pubKey, $message);
 	} catch ( \Exception $e ) {
 		return $message;
 	}
