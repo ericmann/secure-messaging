@@ -64,7 +64,7 @@ function init() {
  * @param int $user_id
  */
 function update_extra_profile_fields( $user_id ) {
-	if ( current_user_can( 'edit_user', $user_id ) ) {
+	if ( current_user_can( 'edit_user', $user_id ) && wp_verify_nonce( $_POST['_securemsg_nonce'], 'change_gpg_key' ) ) {
 		if ( isset( $_POST['securemsg_public_key'] ) ) {
 			update_user_meta( $user_id, 'gpg_public_key', base64_encode( $_POST['securemsg_public_key'] ) );
 		} else {
@@ -94,6 +94,7 @@ function extra_profile_fields( $user ) {
 					<p class="description">
 						<?php esc_html_e( 'Your public key will be used to automatically encrypt any messages sent to you by WordPress, ensuring no one but you can read them.', 'securemsg' ); ?>
 					</p>
+					<?php wp_nonce_field( 'change_gpg_key', '_securemsg_nonce' ); ?>
 				</td>
 			</tr>
 		</table>
