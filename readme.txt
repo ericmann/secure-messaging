@@ -4,7 +4,7 @@ Donate link:       https://eamann.com
 Tags:              PGP, GPG, Security
 Requires at least: 4.7.3
 Tested up to:      4.8
-Stable tag:        0.3.0
+Stable tag:        0.4.0
 License:           MIT
 License URI:       https://opensource.org/licenses/MIT
 
@@ -18,6 +18,12 @@ This is primarily used to secure password reset emails so, even if an attacker w
 
 == Installation ==
 
+= Requirements =
+
+This plugin requires PHP 7 or greater to operate. It _does not_ check for PHP compatibility directly and _will not work_ if installed on an older server.
+
+The GPG functionality requires GPG to be installed and available to WordPress. The plugin will try to test for this functionality upon activation, but _will not work_ if GPG is unavailable.
+
 = Manual Installation =
 
 1. Upload the entire `/secure-messaging` directory to the `/wp-content/plugins/` directory.
@@ -25,17 +31,29 @@ This is primarily used to secure password reset emails so, even if an attacker w
 
 == Frequently Asked Questions ==
 
+= Does the server sign messages as well? =
+
+Not by default. On many installations, the GPG keychain folder needs to live in the `/wp-content` directory and might be readable by third parties. To avoid leaking GPG secret keys, none are ever added by the system in the first place. This means the server can't sign messages before they're sent.
+
+= Is there a limit to the size of the GPG key I can use? =
+
+Not to my knowledge. We're using Pear's [Crypt_GPG]() module, which defer's to the server's GPG module directly. So long as GPG itself supports a key, this plugin will as well.
 
 == Screenshots ==
 
+None at this time
 
 == Changelog ==
 
-= 0.3.0=
+= 0.4.0 =
+* Update: Store the public key fingerprint instead of the entire key for better references later
+* Update: Introduce the `SECUREMSG_KEYCHAIN_DIR` constant for overriding where keys are stored
+
+= 0.3.0 =
 * Update: Switch to the Pear GPG library for better RSA compatibility
 
 = 0.2.0 =
-* Update: Use a new GPG library for better PHP compatiblity
+* Update: Use a new GPG library for better PHP compatibility
 * Update: Add nonce checks on the profile page
 * Update: Add Romanian translations
 
@@ -44,5 +62,5 @@ This is primarily used to secure password reset emails so, even if an attacker w
 
 == Upgrade Notice ==
 
-= 0.1.0 =
-First Release
+= 0.4.0 =
+Both PHP 7 and a server-installed GPG environment are required for proper operation!
