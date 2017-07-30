@@ -12,14 +12,17 @@
  */
 
 // Useful global constants
-define( 'SECUREMSG_VERSION', '0.4.0' );
-define( 'SECUREMSG_URL',     plugin_dir_url( __FILE__ ) );
-define( 'SECUREMSG_PATH',    dirname( __FILE__ ) . '/' );
-define( 'SECUREMSG_INC',     SECUREMSG_PATH . 'includes/' );
+define( 'SECUREMSG_VERSION',  '0.4.0' );
+define( 'SECUREMSG_URL',      plugin_dir_url( __FILE__ ) );
+define( 'SECUREMSG_PATH',     dirname( __FILE__ ) . '/' );
+define( 'SECUREMSG_INC',      SECUREMSG_PATH . 'includes/' );
+define( 'SECUREMSG_BASENAME', plugin_basename( __FILE__ ) );
 
 // Include files
 require_once SECUREMSG_PATH . 'vendor/autoload.php';
-require_once SECUREMSG_INC . 'functions/core.php';
+
+// Activation/Deactivation
+register_activation_hook(   __FILE__, '\EAMann\Secure_Messaging\Core\activate' );
 
 // Bootstrap
 EAMann\Secure_Messaging\Core\setup();

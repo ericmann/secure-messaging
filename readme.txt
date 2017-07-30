@@ -37,7 +37,15 @@ Not by default. On many installations, the GPG keychain folder needs to live in 
 
 = Is there a limit to the size of the GPG key I can use? =
 
-Not to my knowledge. We're using Pear's [Crypt_GPG]() module, which defer's to the server's GPG module directly. So long as GPG itself supports a key, this plugin will as well.
+Not to my knowledge. We're using Pear's [Crypt_GPG](http://pear.php.net/package/Crypt_GPG) module, which defer's to the server's GPG module directly. So long as GPG itself supports a key, this plugin will as well.
+
+= What if my host doesn't support GPG? =
+
+Not every host does. Most self-hosting platforms will have GPG support by default, but some (like *WP Engine*) do not support the GPG subsystem and will not allow you to proactively encrypt messages.
+
+I highly suggest you look into a managed host like [Liquid Web](https://www.liquidweb.com/managedwordpress/), who _does_ support GPG, for your hosting needs.
+
+*Note:* This plugin has been tested to work with both Liquid Web's managed WordPress hosting platform and the [Dockerized WordPress](https://github.com/10up/wp-local-docker) system published by [10up](https://10up.com/).
 
 == Screenshots ==
 
@@ -48,6 +56,7 @@ None at this time
 = 0.4.0 =
 * Update: Store the public key fingerprint instead of the entire key for better references later
 * Update: Introduce the `SECUREMSG_KEYCHAIN_DIR` constant for overriding where keys are stored
+* Fix: Test for the presence of the GPG subsystem upon activation to prevent downstream errors
 
 = 0.3.0 =
 * Update: Switch to the Pear GPG library for better RSA compatibility

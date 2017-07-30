@@ -58,6 +58,48 @@ function init() {
 }
 
 /**
+ * Activate the plugin
+ *
+ * @return void
+ */
+function activate() {
+    $to_verify = <<<VER
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Secure Messaging, Copyright (c) 2017 Eric Mann
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - https://gpgtools.org
+
+iQIcBAEBCgAGBQJZfmTfAAoJEL7FVeIqFDVT+j8P/R5HyM26EVhshODPtCgwu8c7
+AgNKR2/d/gUVBpfi5NQ4EfMD4FynGByHKrTrd0UQlqki5BUkkdEJPclWgOJYNXwr
+yOaqUFxvxjQYZu5vOB2wRsoAOtEDS8LqwsWfOKLs+jkP059eV6JgpzcPx12HexLi
+UldoRjpF4XkXadzxA5wUlpwl/XVi1ilRzek/fwkjNI9r8ST5P898H7L1vTJNUa9/
+IzvXebsZSdVPc9AA+u7FozeCwjgimi/318BAQ8CLpPwBsXH7940YrBcIlNMMYVHc
+BlkLd2BVd3nI6hMcaXZoHJSiwu0lv6gk58w0tNDrFWFp0cc0Bn7BFnff2gTre330
+eMLK31iojy6QbvXYo6+6bNynLPw3RDPPmrNaesXiuQYYT1yNaT0CffBpEQVtEfB5
+7PWLCiR61fA66gh5CZxgDdYpCrMQb7gPnS3N7z2BNsrozX0qJX02xQGSn1G21Y50
+kgpaOJz6Rzq2SxJmrS/KYF+Z1geGTURUV+skjkKG+g/eQ3MdcT531Q7fPClqGggM
+6RHUYm8KFWOw0j1kaqUf2/FJDcTr5QWLhiDrjDeaFvQhODyDgkOr7dJB8G5fgFBY
+U7Ze/wG365HvZr0tPmWG1QnzPkOUYQBolBH2j2eWEvpM9fJL85ViApb04R3GIA6A
+G6VgpUaOTJg0ThPJAA03
+=1tC4
+-----END PGP SIGNATURE-----
+
+VER;
+
+    try {
+        // We don't care if things verify, we just need to run an operation.
+        $gpg = new \Crypt_GPG( [ 'homedir' => get_keychain_dir() ] );
+        $gpg->verify( $to_verify );
+    } catch (\Exception $e) {
+        // GPG is inaccessible. Deactivate
+        deactivate_plugins( SECUREMSG_BASENAME );
+        exit( esc_html__( 'The GPG subsystem is not available. Secure Messaging has been deactivated.', 'securemsg' ) );
+    }
+}
+
+/**
  * Get the site's GPG keychain directory either from a constant or by creating one in WordPress'
  * standard content directory.
  *
