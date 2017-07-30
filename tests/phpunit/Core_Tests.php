@@ -45,22 +45,22 @@ class Core_Tests extends Base\TestCase {
 	 */
 	public function test_i18n() {
 		// Setup
-		\WP_Mock::wpFunction( 'get_locale', array(
+		\WP_Mock::userFunction( 'get_locale', array(
 			'times' => 1,
 			'args' => array(),
 			'return' => 'en_US',
 		) );
 		\WP_Mock::onFilter( 'plugin_locale' )->with( 'en_US', 'securemsg' )->reply( 'en_US' );
-		\WP_Mock::wpFunction( 'load_textdomain', array(
+		\WP_Mock::userFunction( 'load_textdomain', array(
 			'times' => 1,
 			'args' => array( 'securemsg', 'lang_dir/securemsg/securemsg-en_US.mo' ),
 		) );
-		\WP_Mock::wpFunction( 'plugin_basename', array(
+		\WP_Mock::userFunction( 'plugin_basename', array(
 			'times' => 1,
 			'args' => array( 'path' ),
 			'return' => 'path',
 		) );
-		\WP_Mock::wpFunction( 'load_plugin_textdomain', array(
+		\WP_Mock::userFunction( 'load_plugin_textdomain', array(
 			'times' => 1,
 			'args' => array( 'securemsg', false, 'path/languages/' ),
 		) );

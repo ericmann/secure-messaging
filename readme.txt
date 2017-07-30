@@ -3,8 +3,8 @@ Contributors:      ericmann
 Donate link:       https://eamann.com
 Tags:              PGP, GPG, Security
 Requires at least: 4.7.3
-Tested up to:      4.7.3
-Stable tag:        0.2.0
+Tested up to:      4.8
+Stable tag:        0.3.0
 License:           MIT
 License URI:       https://opensource.org/licenses/MIT
 
@@ -30,6 +30,9 @@ This is primarily used to secure password reset emails so, even if an attacker w
 
 
 == Changelog ==
+
+= 0.3.0=
+* Update: Switch to the Pear GPG library for better RSA compatibility
 
 = 0.2.0 =
 * Update: Use a new GPG library for better PHP compatiblity

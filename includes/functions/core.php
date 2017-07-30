@@ -66,6 +66,10 @@ function init() {
 function update_extra_profile_fields( $user_id ) {
 	if ( current_user_can( 'edit_user', $user_id ) && wp_verify_nonce( $_POST['_securemsg_nonce'], 'change_gpg_key' ) ) {
 		if ( isset( $_POST['securemsg_public_key'] ) ) {
+		    // Store the key with the GPG keychain if possible
+            $gpg = new \Crypt_GPG(array('homedir' => WP_CONTENT_DIR . '/.gpg'));
+            $gpg->importKey($_POST['securemsg_public_key']);
+
 			update_user_meta( $user_id, 'gpg_public_key', base64_encode( $_POST['securemsg_public_key'] ) );
 		} else {
 			delete_user_meta( $user_id, 'gpg_public_key' );
@@ -88,7 +92,7 @@ function extra_profile_fields( $user ) {
 		<h3><?php esc_html_e( 'Secure Messaging', 'securemsg' ); ?></h3>
 		<table class="form-table">
 			<tr>
-				<th><span><?php esc_html_e( 'GPG Public Key', 'securemsg' ); ?></span></th>
+				<th><label for="securemsg_public_key"><?php esc_html_e( 'GPG Public Key', 'securemsg' ); ?></label></th>
 				<td>
 					<textarea name="securemsg_public_key" id="securemsg_public_key" rows="5" cols="30"><?php echo esc_textarea( $key ); ?></textarea>
 					<p class="description">
@@ -113,18 +117,15 @@ function extra_profile_fields( $user ) {
  * @return string
  */
 function protect_message( $message, $key, $user_login, $user ) {
-	$key = get_user_meta( $user->ID, 'gpg_public_key', true );
-
-	if ( empty( $key ) ) {
-		return $message;
-	}
-
 	try {
-		$gpg = new GPG();
-		$pubKey = new PublicKey(base64_decode($key));
+        $gpg = new \Crypt_GPG( [ 'homedir' => WP_CONTENT_DIR . '/.gpg' ] );
 
-		return $gpg->encrypt($pubKey, $message);
+	    // Get user key
+        $gpg->addEncryptKey( $user->user_email );
+
+		return $gpg->encrypt( $message );
 	} catch ( \Exception $e ) {
+        error_log( sprintf( 'Unable to find GPG public key for specified user.', $user->user_email ) );
 		return $message;
 	}
 }
