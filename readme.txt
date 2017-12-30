@@ -1,10 +1,10 @@
 === Secure Messaging ===
 Contributors:      ericmann
-Donate link:       https://eamann.com
+Donate link:       https://paypal.me/eam
 Tags:              PGP, GPG, Security
 Requires at least: 4.7.3
-Tested up to:      4.8
-Stable tag:        0.4.0
+Tested up to:      4.9.1
+Stable tag:        0.4.1
 License:           MIT
 License URI:       https://opensource.org/licenses/MIT
 
@@ -52,6 +52,9 @@ I highly suggest you look into a managed host like [Liquid Web](https://www.liqu
 None at this time
 
 == Changelog ==
+
+= 0.4.1 =
+* Fix: Explicitly add Eric Mann's public key for the GPG subsystem test
 
 = 0.4.0 =
 * Update: Store the public key fingerprint instead of the entire key for better references later
